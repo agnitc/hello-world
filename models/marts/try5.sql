@@ -1,12 +1,10 @@
-{% set paymentmethods = ['bank_transfer', 'credit_card', 'coupon', 'gift_card'] -%}
-
 with payments as (
     select * from {{ ref('payments')}}
 ),
 pivoted as (
     select
     orderid,
-    {%- for pmtMethod in paymentmethods %}
+    {%- for pmtMethod in distinct_pmt_methods() %}
         sum(case when paymentmethod = '{{ pmtMethod }}' then amount else 0 end) as {{ pmtMethod }}_amount {%- if not loop.last -%}, {%- endif -%}
     {% endfor -%} 
     from payments
@@ -14,3 +12,4 @@ pivoted as (
 )
 
 select * from pivoted
+

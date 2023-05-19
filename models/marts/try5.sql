@@ -1,6 +1,8 @@
 with payments as (
     select * from {{ ref('payments')}}
 ),
+
+
 pivoted as (
     select
     orderid,
@@ -13,3 +15,5 @@ pivoted as (
 
 select * from pivoted
 
+
+/******************************/

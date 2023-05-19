@@ -14,6 +14,3 @@ pivoted as (
 )
 
 select * from pivoted
-
-
-/******************************/
